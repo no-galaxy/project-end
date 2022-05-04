@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录注册</title>
+    <link rel="stylesheet" href="css/login and register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <!-- 注册 -->
+            <div class="register-box hidden">
+                <h1>register</h1>
+                <form id="form1">
+                <input type="text" placeholder="用户名" name="username">
+                <input type="email" placeholder="邮箱" name="eamil">
+                <input type="password" placeholder="密码" name="password">
+                <!-- <input type="text" placeholder="用户名"> -->
+                <input type="button" value="注册" class="btn-register">
+            </form>
+        </div>
+        <!-- 登录 -->
+        <div class="login-box">
+            <h1>login</h1>
+            <form id="form2">
+            <input type="text" placeholder="用户名或邮箱" name="usernameOrEmail">
+            <input type="password" placeholder="密码" name="login-password">
+            <div><input type="checkbox" value="记住我"><span>记住我</span></div>
+            <input type="button" value="登录" class="btn-login">
+        </form>
+            <span>忘记密码？<a href="">点击找回</a></span>
+        </div>
+    </div>
+    <div class="con-box left">
+        <h2>欢迎来到 <span>小A论坛</span></h2>
+        <p>快来加入这个<span>大家庭</span></p>
+        <img src="images/吉祥物招手.png" alt="">
+        <p>已有账号</p>
+        <button id="login">去登录</button>
+    </div>
+    <div class="con-box right">
+        <h2>欢迎来到 <span>小A论坛</span></h2>
+        <p>快来发布你的专属<span>动态</span></p>
+        <img src="images/吉祥物.png" alt="">
+        <p>没有账号？</p>
+        <button id="register">去注册</button>
+    </div>
+    </div>
+    <script src="js/ajax.js"></script>
+    <script src="js/login and register.js"></script>
+</body>
+</html>

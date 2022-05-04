@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户界面</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="header w">
+        <img src="images/Alogo.png" alt="">
+        <ul class="nav">
+            <li><a href="javascript:;" >全部动态</a></li>
+            <li><a href="javascript:;" >搜索动态</a></li>
+            <li><a href="javascript:;" >热门</a></li>
+            <li><a href="javascript:;" >个人空间</a></li>
+            <li><a href="javascript:;" >个人相册</a></li>
+        </ul>
+    </div>
+    <div class="user w">
+        <img src="images/user.jpg" alt="">
+        <div class="user-info">
+            <div class="top">
+                <img src="" alt="" id="headImg">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <ul>
+                    <li><a href="javascript:;" id="deleteUser">注销</a></li>
+                    <li><a href="javascript:;" id="change">修改密码</a></li>
+                    <li><a href="file:///C:/Users/pan'da'xie/Desktop/html/project/login%20and%20register.html">退出登录</a></li>
+                </ul>
+            </div>
+                <div class="buttom">
+                    <form action="" id="form1">
+                        <input type="file" name="headImg" id="file-headImg">
+                        <span>点击上方可上传头像</span>
+                    </form>
+                </div>
+        </div>
+    </div>
+    <div class="section w">
+        <div class="content-header"><h2>全部动态</h2></div>
+        <section class="content">
+            <!-- <div class="major">
+                <div class="content-username">
+                    <img src="images/robot.png" alt="">
+                    <span>123</span>
+                    <span>id：</span>
+            </div>
+                <div class="content-text">
+                    <h2>title</h2>
+                    <div class="text">12334</div>
+                    <img src="images/Alogo.png" alt="">
+                </div>
+                <div class="timer">
+                    <span>发布时间为：</span>
+                    <span>动态id：</span>
+                    <img src="images/评论.png" alt="">
+                    <img src="images/点赞.png" alt="">
+                    <a href="">1</a>
+                </div> 
+        </div>  -->
+    </section>
+    <section style="display: none;">
+        <div class="search-header">
+        <input type="text" id="search" name="text" placeholder="请输入动态ID或者动态的标题或内容">
+        <img src="images/搜索.png" alt="" class="search-id">
+    </div>
+    </section>
+    <section></section>
+    <section style="display: none;">
+        <div class="button-function">
+            <div class="fun-top">
+                <button id="check-info">查看个人信息</button>
+                <button id="revise-info">修改个人信息</button>
+            </div>
+            <div class="fun-bottom">
+                <button id="put-trend">发布个人动态</button>
+                <button id="delete-trend">删除个人动态</button>
+            </div>
+        </div>
+    </section>
+    <section></section>
+     </div>
+     <!-- 中间居中的盒子 -->
+     <div id="user-spcinfo">
+         <div id="close">关闭</div>
+         <h2>修改个人信息</h2>
+         <form action="" id="form2">
+            <input type="text" name="NewUsername" placeholder="请输入新用户名">
+            <input type="email" name="NewEmail" placeholder="请输入新邮箱">
+            <input type="text" name="phone" placeholder="请输入新电话">
+            <input type="text" name="sex" placeholder="请输入性别">
+            <input type="text" name="age" placeholder="请输入年龄">
+            <input type="button" id="btn-sub" value="提交">
+         </form>
+     </div>
+    <script src="js/ajax.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

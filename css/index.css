@@ -1,0 +1,262 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh;
+    background-color: rgb(246, 246, 246);
+}
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+/* 导航栏 */
+.header {
+    /* 弹性布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+.header img {
+    width: 80px;
+}
+.header ul {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+.header ul li {
+    width: 200px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-left: 2px solid #ccc;
+    
+}
+.header ul li:last-child {
+    border-right: 2px solid #ccc;
+}
+.header ul li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: 0.2s;
+}
+.header ul li a:hover{
+    border-bottom: 2px solid #f6b539;
+}
+/* 个人信息 */
+.user{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.user img {
+    width: 800px;
+}
+.user-info {
+    border: 2px solid #ccc;
+    width: 400px;
+    /* background-color: pink; */
+}
+.user-info .top {
+    /* 弹性布局垂直排列 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+.user-info .top img {
+    width: 100px;
+    margin: 0 auto;
+}
+.user-info .top ul {
+    text-align: center;
+}
+.user-info .top span {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 10px;
+}
+.user-info .buttom {
+    margin: 10px auto 0;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 2px solid #0f9cf5;
+    text-align: center;
+}
+.user-info .buttom input {
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+.section {
+    margin-top: 50px;
+}
+.content-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid #0f9cf5;
+}
+.content-header::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #0f9cf5;
+}
+.content {
+    /* display: none; */
+    width: 100%;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+.content .major {
+    width: 800px;
+    /* height: 400px; */
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #ccc,
+    inset 0 0 10px #ccc;
+}
+.content-username {
+    width: 100%;
+}
+.major .content-username img {
+    width: 70px;
+}
+.major .content-username span{
+    margin-right: 20px;
+}
+.content-text {
+    width: 100%;
+    height: 300px;
+}
+.content .cotent-text h2 {
+    margin: 10px 0;
+}
+.content .content-text img {
+    margin: 20px 10px 0;
+    width: 150px;
+}
+.timer {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 40px;
+}
+.timer img {
+    width: 40px;
+    cursor: pointer;
+}
+.timer span {
+    text-indent: 2em;
+    flex: 1;
+}
+.timer a {
+    margin-right: 20px;
+    cursor: auto;
+}
+/* 搜索框 */
+section .search-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+section input {
+    margin: 10px auto;
+    width: 1000px;
+    height: 40px;
+    outline: none;
+    border-radius: 8px;
+}
+section .search-id {
+    width: 50px;
+    cursor: pointer;
+}
+section .button-function {
+    width: 600px;
+    height: 150px;
+    /* background-color: pink; */
+    border: 1px solid #0f9cf5;
+    margin: 20px auto;
+}
+.button-function .fun-top,
+.button-function .fun-bottom {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.button-function button {
+    cursor: pointer;
+    letter-spacing: 5px;
+    height: 50px;
+    margin: 0 20px
+}
+#user-spcinfo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 500px;
+    /* background-color: pink; */
+    box-shadow: 0px 0px 10px #ccc,
+    inset 0 0 10px #ccc;
+    display: none;
+}
+#user-spcinfo h2 {
+    margin-left: 1350px;
+}
+#user-spcinfo #close {
+    background-color: skyblue;
+    position: absolute;
+    right: -25px;
+    top: -25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+#user-spcinfo #form2 {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+#form2 input {
+    width: 300px;
+    height: 20px;
+    outline: none;
+}
+#user-spcinfo #btn-sub {
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
