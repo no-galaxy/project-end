@@ -38,6 +38,7 @@ inputs[1].onblur = function() {
         labels[1].innerHTML = 'NewPassword';
     }
 };
+// 发送验证码ajax请求
 getCode.onclick = function() {
     if(regEmail.test(inputs[0].value)) {
     ajax ( {
@@ -60,6 +61,7 @@ getCode.onclick = function() {
     })
 }
 }
+// 修改密码ajax请求
 btn.onclick = function() {
     let formData = new FormData(form);
     ajax ( {

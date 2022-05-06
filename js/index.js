@@ -9,6 +9,9 @@ var userinfo = {
     email: localStorage.getItem('email'),
     password: localStorage.getItem('password'),
     headImg: localStorage.getItem('headImg'),
+    age: localStorage.getItem('age'),
+    phone: localStorage.getItem('phone'),
+    sex: localStorage.getItem('sex')
 };
 // 设置一个通用的ajax发送请求的对象 后面需要加success函数
 var sendObj = {
@@ -39,6 +42,9 @@ spans[0].innerHTML = 'id：' + userinfo.id;
 spans[1].innerHTML = '用户名：' + userinfo.username;
 spans[2].innerHTML = '密码：' + userinfo.password;
 spans[3].innerHTML = '邮箱：' + userinfo.email;
+spans[4].innerHTML = '电话：' + userinfo.phone;
+spans[5].innerHTML = '性别：' + userinfo.sex;
+spans[6].innerHTML = '年龄：' + userinfo.age;
 headImg.src = imgdomain + userinfo.headImg;
 }
 getUserInfo();
@@ -128,26 +134,37 @@ headImgFile.onchange = function() {
 }
 // 获取元素 动态添加全部的动态
 let content = document.querySelector('.content')
+// 动态删除函数
+function deleteContentTab(data, x) {
+  if(data instanceof Array) {
+ // 判断是否删除第一个盒子
+ if(x.children[0] != undefined && x.children[1] != undefined) {
+  if(x.children[2] == undefined) {
+    x.removeChild(x.children[1]);
+  } else {
+  for(let i = 0; i < data.length; i++) {
+  if(x.children[data.length - i] == undefined) {
+    x.removeChild(x.children[0]);
+  } else{
+    x.removeChild(x.children[1]);
+  } }
+  } 
+}
+  } else {
+    if(x.children[1] != undefined) {
+      for(let i = 0; i < x.children.length; i++) {
+        x.removeChild(x.children[1]);
+      }
+  }
+  }
+}
 // 动态添加函数
 function addContentTab(data,x) {
   if(data instanceof Array) {
-    // 判断是否删除第一个盒子
-    if(x.children[0] != undefined && x.children[1] != undefined) {
-      if(x.children[2] == undefined) {
-        x.removeChild(x.children[1]);
-      } else {
-      for(let i = 0; i < data.length; i++) {
-      if(x.children[data.length - i] == undefined) {
-        x.removeChild(x.children[0]);
-      } else{
-        x.removeChild(x.children[1]);
-      } }
-      } 
-    }
   for(let i = 0; i < data.length; i++) {
     let major = '<div class="major"> \
     <div class="content-username"> \
-        <img src=' + urldomain + data[i].author.headImg +' alt=""> \
+        <img src=' + imgdomain + data[i].author.headImg +' alt=""> \
         <span>'+ data[i].author.username +'</span> \
         <span>id：'+ data[i].author.id +'</span> \
 </div> \
@@ -158,27 +175,23 @@ function addContentTab(data,x) {
     <div class="timer"> \
         <span>发布时间为：'+ data[i].createTime + '</span> \
         <span>动态id： '+ data[i].id+'</span> \
+        <p>^下拉或收起</p>\
         <img src="images/评论.png" alt=""> \
-        <img src="images/点赞.png" alt=""> \
-        <a href="">'+ data[i].likesNum+'</a> \
+        <img src="images/点赞.png" alt="" class="give-like"> \
+        <a href="javascript:;">'+ data[i].likesNum+'</a> \
     </div> \
 </div>'
     x.insertAdjacentHTML('beforeend', major);
     for(let j = 0; j < data[i].images.length; j++) {
       let contentText = x.querySelector('.index'+ i +'');
-      let images =  '<img src='+ urldomain + data[i].images[j].img +' alt=""></img>'
+      let images =  '<img src='+ imgdomain + data[i].images[j].img +' alt=""></img>'
       contentText.insertAdjacentHTML('beforeend', images);
   }
   }
 } else {
-  if(x.children[1] != undefined) {
-      for(let i = 0; i < x.children.length; i++) {
-        x.removeChild(x.children[1]);
-      }
-  }
   let major = '<div class="major"> \
     <div class="content-username"> \
-        <img src=' + urldomain + data.author.headImg +' alt=""> \
+        <img src=' + imgdomain + data.author.headImg +' alt=""> \
         <span>'+ data.author.username +'</span> \
         <span>id：'+ data.author.id +'</span> \
 </div> \
@@ -189,18 +202,118 @@ function addContentTab(data,x) {
     <div class="timer"> \
         <span>发布时间为：'+ data.createTime + '</span> \
         <span>动态id： '+ data.id+'</span> \
+        <p>^下拉或收起</p>\
         <img src="images/评论.png" alt=""> \
-        <img src="images/点赞.png" alt=""> \
-        <a href="">'+ data.likesNum+'</a> \
+        <img src="images/点赞.png" alt="" class="give-like"> \
+        <a href="javascript:;">'+ data.likesNum +'</a> \
     </div> \
 </div>'
     x.insertAdjacentHTML('beforeend', major);
     let contentText = x.querySelector('.content-text');
     for(let j = 0; j < data.images.length; j++) {
-      let images =  '<img src='+ urldomain + data.images[j].img +' alt=""></img>'
+      let images =  '<img src='+ imgdomain + data.images[j].img +' alt=""></img>'
       contentText.insertAdjacentHTML('beforeend', images);
   }
 }
+}
+// 展开详细信息或这收起详细信息
+function spreadTrend(x) {
+          let h2s = x.querySelectorAll('h2');
+          let ps = x.querySelectorAll('p');
+          for(let i = 0; i < h2s.length; i++) {
+            h2s[i].onclick = function() {
+          this.nextElementSibling.className = 'text-spread';
+            }
+          }
+          for(let j = 0; j < ps.length; j++) {
+            ps[j].onclick = function() {
+             this.parentNode.previousElementSibling.children[1].className = 'text';
+            }
+          }
+}
+// 点赞取消点赞
+function giveLike(data, x) {
+      let givelks = x.querySelectorAll('.give-like');
+      sendObj.url = urldomain + "175.178.51.126:8091/smallA/likeDiary";
+      if(data instanceof Array) {
+      for(let i = 0; i < givelks.length; i++) {
+        let that = data[i].isLike;
+        let likeNum = data[i].likesNum;
+        givelks[i].addEventListener('click',function() {
+          if(that == false) {
+            sendObj.data = {
+              uid: userinfo.id,
+              id: data[i].id,
+              ifLike: true
+            }
+            sendObj.success = (result, xhr) => {
+              console.log(result);
+              if(result.code == 200) {
+                alert('点赞成功');
+                that = true;
+                givelks[i].nextElementSibling.innerHTML = likeNum + 1;
+                likeNum += 1;
+              } 
+            }
+            ajax(sendObj)
+          } else {
+              sendObj.data = {
+                uid: userinfo.id,
+                id: data[i].id,
+                ifLike: false
+            };
+            sendObj.success = (result, xhr) => {
+              console.log(result);
+              if(result.code == 200) {
+                alert('取消点赞成功')
+                that = false;
+                givelks[i].nextElementSibling.innerHTML =  likeNum - 1;
+                likeNum -= 1;
+              }
+            }
+            ajax(sendObj)
+          }
+        })
+      }
+    } else {
+      let that = data.isLike;
+        let likeNum = data.likesNum;
+        givelks[0].addEventListener('click',function() {
+          if(that == false) {
+            sendObj.data = {
+              uid: userinfo.id,
+              id: data.id,
+              ifLike: true
+            }
+            sendObj.success = (result, xhr) => {
+              console.log(result);
+              if(result.code == 200) {
+                alert('点赞成功');
+                that = true;
+                givelks[0].nextElementSibling.innerHTML = likeNum + 1;
+                likeNum += 1;
+              } 
+            }
+            ajax(sendObj)
+          } else {
+              sendObj.data = {
+                uid: userinfo.id,
+                id: data.id,
+                ifLike: false
+            };
+            sendObj.success = (result, xhr) => {
+              console.log(result);
+              if(result.code == 200) {
+                alert('取消点赞成功')
+                that = false;
+                givelks[0].nextElementSibling.innerHTML =  likeNum - 1;
+                likeNum -= 1;
+              }
+            }
+            ajax(sendObj)
+          }
+        })
+    }
 }
 ajax({
   type: "post",
@@ -214,7 +327,9 @@ ajax({
       success: (result, xhr) => {
           console.log(result);
         if(result.code == 200) {
-          addContentTab(result.data, content)
+          addContentTab(result.data, content);
+          spreadTrend(content);
+          giveLike(result.data, content);
        } }
 })
 // 获取切换tab栏的元素
@@ -234,6 +349,27 @@ for(let i = 0; i < as.length; i++) {
   }
 }
 // 切换tab栏结束
+// 全部动态
+as[0].addEventListener('click', function() {
+  ajax({
+    type: "post",
+        header: {
+          "Content-Type": "application/json",
+        },
+        url: urldomain + "175.178.51.126:8091/smallA/selectAllDiary",
+        data: {
+          uid: userinfo.id,
+        },
+        success: (result, xhr) => {
+            console.log(result);
+          if(result.code == 200) {
+            deleteContentTab(result.data, sections[this.index]);
+            addContentTab(result.data, sections[this.index]);
+            spreadTrend(sections[this.index]);
+            giveLike(result.data, sections[this.index]);
+         } }
+  })
+})
 // 热门动态
 as[2].addEventListener('click', function() {
   ajax({
@@ -248,7 +384,10 @@ as[2].addEventListener('click', function() {
         success: (result, xhr) => {
             console.log(result);
           if(result.code == 200) {
-            addContentTab(result.data, sections[this.index])
+            deleteContentTab(result.data, sections[this.index]);
+            addContentTab(result.data, sections[this.index]);
+            spreadTrend(sections[this.index]);
+            giveLike(result.data, sections[this.index]);
          } }
   })
 })
@@ -270,7 +409,10 @@ searchBtn.onclick = function() {
               console.log(result);
             if(result.code == 200) { 
               if(result.data != null) {
-              addContentTab(result.data, sections[1])
+              deleteContentTab(result.data, sections[1]);
+              addContentTab(result.data, sections[1]);
+              spreadTrend(sections[1]);
+              giveLike(result.data, sections[1])
               } else {
                 alert('该动态不存在')
               }
@@ -286,14 +428,16 @@ searchBtn.onclick = function() {
       ajax(searchSend);
     }
 }
-// 修改和查看个人信息
+// 修改个人信息
   let userSpcinfo = document.getElementById('user-spcinfo');
   let reviseFun = document.getElementById('revise-info');
   let btnSub = document.getElementById('btn-sub');
   let btnClose = document.querySelector('#close')
+  //显示输入框
   reviseFun.onclick = function() {
     userSpcinfo.style.display = 'block';
   }
+  // 发送ajax请求
   btnSub.onclick = function() {
     let inputs = document.getElementById('form2').querySelectorAll('input')
     ajax({
@@ -313,15 +457,117 @@ searchBtn.onclick = function() {
           success: (result, xhr) => {
             console.log(result);
             if(result.code == 200) {
-
+              alert('修改成功');
+              localStorage.setItem('username', inputs[0].value);
+              localStorage.setItem('email', inputs[1].value);
+              localStorage.setItem('phone', inputs[2].value);
+              localStorage.setItem('sex', inputs[3].value);
+              localStorage.setItem('age', inputs[4].value);
+              userinfo.username = localStorage.getItem('username');
+              userinfo.email = localStorage.getItem('email');
+              userinfo.phone = localStorage.getItem('phone');
+              userinfo.sex = localStorage.getItem('sex');
+              userinfo.age = localStorage.getItem('age');
+              getUserInfo();
+              userSpcinfo.style.display = 'none';
             }
           }
     })
   }
+  // 隐藏输入框
   btnClose.onclick = function() {
     userSpcinfo.style.display = 'none'
   }
-  
+  // 删除动态
+  let deleteTrend = document.getElementById('delete-trend');
+  deleteTrend.onclick = function () {
+    let deleteID = prompt('请输入要删除的动态的ID');
+    sendObj.url = urldomain + "175.178.51.126:8091/smallA/deleteDiary"
+    sendObj.data = { 
+      id: deleteID
+    };
+    sendObj.success = function(result, xhr) {
+      console.log(result);
+      if(result.code == 200) {
+        alert('删除成功');
+        as[3].click();
+        sections[3].removeChild(sections[3].children[1])
+      } else {
+        alert(result.msg)
+      }
+    };
+    if(deleteID != undefined) {
+    ajax(sendObj);
+    }
+  }
+  // 发布动态
+  // 获取元素
+  let sendTrend = document.getElementById('sub-trends');
+  let putTrend = document.getElementById('put-trend')
+  let funBottom = document.querySelector('.fun-bottom');
+  let cancle = document.getElementById('cancle')
+  //显示文本框
+  putTrend.onclick = function() {
+    funBottom.style.display = 'block'
+  }
+  // 隐藏文本框 
+  cancle.onclick = function() {
+    funBottom.style.display = 'none'
+  }
+  // 发布动态
+  sendTrend.onclick = function() {
+    // 获取元素属性
+    let title = document.getElementById('put-title').value;
+    let content = document.getElementById('put-content').value;
+    let imgFiles = document.getElementById('files');
+    // 创建空表单对象
+    let formData = new FormData();
+    formData.append('uid', userinfo.id);
+    formData.append('title', title);
+    formData.append('content', content);
+    for(let i = 0; i < imgFiles.files.length; i++) {
+      formData.append('img', imgFiles.files[i])
+    }
+    ajax({
+      type: "post",
+          header: {
+            "Content-Type": ""
+          },
+          url: urldomain + "175.178.51.126:8091/smallA/insertDiary",
+          data: formData,
+          success: (result, xhr) => {
+            console.log(result);
+            if(result.code == 200) {
+              alert('发送成功')
+              addContentTab(result.data, sections[3])
+              spreadTrend(sections[3]);
+              as[3].click();
+            }
+          }
+    })
+  }
+  //  查询自身的id动态
+  as[3].addEventListener('click', function() {
+    ajax({
+      type: "post",
+          header: {
+            "Content-Type": "application/json",
+          },
+          url: urldomain + "175.178.51.126:8091/smallA/selectDiaryByUserId",
+          data: {
+            uid: userinfo.id,
+            id: userinfo.id
+          },
+          success: (result, xhr) => {
+              console.log(result);
+            if(result.code == 200) {
+              deleteContentTab(result.data, sections[this.index]);
+              addContentTab(result.data, sections[this.index])
+              spreadTrend(sections[this.index]);
+              giveLike(result.data, sections[this.index]);
+           } }
+    })
+  })
 
 
 

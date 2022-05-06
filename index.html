@@ -27,6 +27,9 @@
                 <span>2</span>
                 <span>3</span>
                 <span>4</span>
+                <span></span>
+                <span></span>
+                <span></span>
                 <ul>
                     <li><a href="javascript:;" id="deleteUser">注销</a></li>
                     <li><a href="javascript:;" id="change">修改密码</a></li>
@@ -58,7 +61,8 @@
                 <div class="timer">
                     <span>发布时间为：</span>
                     <span>动态id：</span>
-                    <img src="images/评论.png" alt="">
+                    <h3>^收起或下拉<h3>
+                    <img src="images/评论.png"  alt="">
                     <img src="images/点赞.png" alt="">
                     <a href="">1</a>
                 </div> 
@@ -74,12 +78,20 @@
     <section style="display: none;">
         <div class="button-function">
             <div class="fun-top">
-                <button id="check-info">查看个人信息</button>
-                <button id="revise-info">修改个人信息</button>
+                <button id="revise-info">修改信息</button>
+                <button id="put-trend">发布动态</button>
+                <button id="delete-trend">删除动态</button>
             </div>
-            <div class="fun-bottom">
-                <button id="put-trend">发布个人动态</button>
-                <button id="delete-trend">删除个人动态</button>
+            <div class="fun-bottom" style="display: none;">
+                <form action="" id="form3">
+                    <input type="text" name="title" id="put-title" placeholder="请输入标题">
+                    <textarea name="content" id="put-content" cols="30" rows="10" placeholder="请输入内容"></textarea>
+                    <div class="form3-button">
+                        <input type="button" value="发送" name="trends" id="sub-trends">
+                        <input type="button" value="取消" name="cancle" id="cancle">
+                        <input type="file" name="file" id="files" multiple="multiple">
+                    </div>
+                </form>
             </div>
         </div>
     </section>

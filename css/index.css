@@ -126,13 +126,15 @@ a {
     border-right: 1px solid #ccc;
 }
 .content .major {
-    width: 800px;
+    width: 900px;
     /* height: 400px; */
     margin: 20px auto;
     border: 1px solid #ccc;
     background-color: #fff;
     box-shadow: 0px 0px 10px #ccc,
     inset 0 0 10px #ccc;
+    display: flex;
+    flex-direction: column;
 }
 .content-username {
     width: 100%;
@@ -145,19 +147,44 @@ a {
 }
 .content-text {
     width: 100%;
-    height: 300px;
+    /* height: 300px; */
 }
-.content .cotent-text h2 {
-    margin: 10px 0;
+.content .content-text h2 {
+    margin: 5px 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.content .content-text h2:hover {
+    text-decoration: underline;
+}
+.content .content-text .text {
+    height: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 10px;
+}
+.text-spread {
+    flex: 1;
+    margin: 0 10px;
 }
 .content .content-text img {
     margin: 20px 10px 0;
-    width: 150px;
+    height: 100px;
 }
 .timer {
     display: flex;
     justify-content: flex-end;
     line-height: 40px;
+}
+.timer p {
+    margin: 0 30px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+.timer p:hover {
+    text-decoration: underline;
 }
 .timer img {
     width: 40px;
@@ -190,19 +217,65 @@ section .search-id {
     cursor: pointer;
 }
 section .button-function {
-    width: 600px;
-    height: 150px;
+    width: 800px;
+    /* height: 500px; */
     /* background-color: pink; */
     border: 1px solid #0f9cf5;
     margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
 }
-.button-function .fun-top,
-.button-function .fun-bottom {
+.button-function .fun-top
+ {
     width: 100%;
-    height: 50%;
+    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.button-function .fun-bottom {
+    width: 700px;
+    flex: 1;
+    border: 1px solid #f6b539;
+    margin-bottom: 20px;
+}
+.button-function .fun-bottom #form3 {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#form3 #put-title {
+    width: 400px;
+}
+#form3 #put-content {
+    resize: none;
+    width: 95%;
+    height: 75%;
+    outline: none;
+}
+/* 按钮设置 */
+#form3 .form3-button {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5px;
+}
+.fun-bottom #form3 input {
+    width: 100px;
+    margin: 5px 0;
+    /* cursor: pointer; */
+}
+.fun-bottom #form3 .form3-button input {
+    cursor: pointer;
+}
+.fun-bottom #form3 #files {
+    width: 200px;
 }
 .button-function button {
     cursor: pointer;
@@ -210,6 +283,7 @@ section .button-function {
     height: 50px;
     margin: 0 20px
 }
+/* 个人信息 */
 #user-spcinfo {
     position: fixed;
     top: 50%;
@@ -223,7 +297,7 @@ section .button-function {
     display: none;
 }
 #user-spcinfo h2 {
-    margin-left: 1350px;
+    margin-left: 135px;
 }
 #user-spcinfo #close {
     background-color: skyblue;

@@ -41,11 +41,6 @@ registerBtn.onclick = function () {
     alert("密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线");
     return;
   } else {
-    // var formData = new FormData();
-    // formData.append("username", re_username);
-    // formData.append("email", re_eamil);
-    // formData.append("password", re_password);
-    // console.log(formData.get('username'));
     ajax({
       type: "post",
       header: {
@@ -104,6 +99,9 @@ success: function(result, xhr) {
       localStorage.setItem('email', result.data.email);
       localStorage.setItem('password', login_password);
       localStorage.setItem('headImg', result.data.headImg);
+      localStorage.setItem('phone', result.data.phone);
+      localStorage.setItem('sex', result.data.sex);
+      localStorage.setItem('age', result.data.age);
       window.location.href = "file:///C:/Users/pan'da'xie/Desktop/html/project/index.html"
   }
   else{
