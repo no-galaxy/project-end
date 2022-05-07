@@ -7,7 +7,7 @@
     <title>用户界面</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
+<body class="on">
     <div class="header w">
         <img src="images/Alogo.png" alt="">
         <ul class="nav">
@@ -17,6 +17,7 @@
             <li><a href="javascript:;" >个人空间</a></li>
             <li><a href="javascript:;" >个人相册</a></li>
         </ul>
+        <div class="on-off">关灯</div>
     </div>
     <div class="user w">
         <img src="images/user.jpg" alt="">
@@ -65,7 +66,7 @@
                     <img src="images/评论.png"  alt="">
                     <img src="images/点赞.png" alt="">
                     <a href="">1</a>
-                </div> 
+                </div>
         </div>  -->
     </section>
     <section style="display: none;">
@@ -95,7 +96,29 @@
             </div>
         </div>
     </section>
-    <section></section>
+    <section style="display: none;">
+        <div class="photo-function">
+            <div class="photo-top">
+                <button id="put-photo">添加相册</button>
+                <button id="delete-photo">删除相册</button>
+            </div>
+            <div class="photo-bottom" style="display: none;" >
+                <form action="" id="form4">
+                    <input type="text" name="photo-name" id="photo-name" placeholder="请输入相册名">
+                    <textarea name="photo-brief" id="put-brief" cols="30" rows="10" placeholder="请输入相册简介"></textarea>
+                    <div class="form4-button">
+                        <input type="button" value="添加" name="sub-photo" id="sub-photo">
+                        <input type="button" value="取消" name="photo-cancle" id="photo-cancle">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- <form action="" id="form5">
+            <input type="button" value="上传照片">
+            <input type="file" multiple="multiple">
+            <input type="text" value="删除照片">
+        </form> -->
+    </section>
      </div>
      <!-- 中间居中的盒子 -->
      <div id="user-spcinfo">
@@ -110,7 +133,14 @@
             <input type="button" id="btn-sub" value="提交">
          </form>
      </div>
+     <!-- 装相册的盒子 -->
+    <div id="user-Album" style="display: none;">
+        <div id="close-Album">关闭</div>
+       <!-- <span>id:1</span>
+       <img src="images/robot.png" alt=""> -->
+    </div>
     <script src="js/ajax.js"></script>
     <script src="js/index.js"></script>
+    
 </body>
 </html>

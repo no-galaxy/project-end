@@ -21,6 +21,25 @@ var sendObj = {
 },
  data: {}
 }
+// 开灯关灯
+let onOff = document.querySelector('.on-off');
+onOff.onclick = function() {
+  let as = document.querySelectorAll('a')
+  if(this.innerHTML == '关灯') {
+    document.body.className = 'off';
+    this.innerHTML = '开灯';
+    for(let i = 0; i < as.length; i++) {
+      as[i].style.color = 'white'
+    }
+  } else {
+    document.body.className = 'on';
+    this.innerHTML = '关灯';
+    for(let i = 0; i < as.length; i++) {
+      as[i].style.color = 'black'
+    }
+    
+  }
+}
 // 获取注销和修改密码按钮
 let deleteBtn = document.getElementById('deleteUser');
 let changeBtn = document.getElementById('change');
@@ -315,6 +334,40 @@ function giveLike(data, x) {
         })
     }
 }
+// 动态添加相册
+function addphotos(data, x) {
+  if(data instanceof Array) {
+  for(let i = 0; i < data.length; i++) {
+    let major = '<div class="major"> \
+    <div class="content-username"> \
+    <img src=' + imgdomain + userinfo.headImg +' alt=""> \
+        <span>'+ userinfo.username +'</span> \
+        <span>相册id：'+ data[i].id +'</span> \
+    </div> \
+    <div class="content-text"> \
+    <h2>'+ data[i].name+'</h2> \
+        <div class="text">'+ data[i].introduction+'</div> \
+    </div> \
+    <form action="" id="form5"> \
+                <input type="button" value="上传照片" name="send-img" id="send-img"> \
+                <input type="file" multiple="multiple" id="imageFiles"> \
+                <input type="button" value="删除照片" name="delete-img" id="delete-img"> \
+            </form> \
+</div>'
+  x.insertAdjacentHTML('beforeend', major);
+  }
+} else {
+  let major = '<div class="major"> \
+    <div class="content-username">id:wu</div> \
+    <div class="content-text"> \
+    <h2>wu</h2> \
+        <div class="text">wu</div> \
+    </div> \
+</div>'
+  x.insertAdjacentHTML('beforeend', major);
+}
+}
+
 ajax({
   type: "post",
       header: {
@@ -568,6 +621,181 @@ searchBtn.onclick = function() {
            } }
     })
   })
+// 个人相册内容
+let putPhoto = document.getElementById('put-photo');
+let photoCancle = document.getElementById('photo-cancle');
+let photoBottom = document.querySelector('.photo-bottom');
+let addPhoto = document.getElementById('sub-photo');
+// 隐藏文本框
+photoCancle.onclick = function() {
+  photoBottom.style.display = 'none'
+}
+// 添加相册
+addPhoto.onclick = function () {
+  let photoName = document.getElementById('photo-name').value;
+  let brief = document.getElementById('put-brief').value;
+  ajax({
+    type: "post",
+    header: {
+      "Content-Type": "application/json",
+    },
+    url: urldomain + "175.178.51.126:8091/smallA/insertAlbum",
+    data: {
+      uid: userinfo.id,
+      name: photoName,
+      introduction: brief
+    },
+    success: (result, xhr) => {
+      console.log(result);
+      if(result.code == 200) {
+        alert('添加成功');
+        addphotos(result.data, sections[4])
+        as[4].click()
+      }
+    },
+  })
+}
+// 显示文本框
+putPhoto.onclick = function() {
+  photoBottom.style.display = 'block'
+}
+// 删除相册
+let deletePho = document.getElementById('delete-photo');
+deletePho.onclick = function() {
+  let photoID = prompt('请输入要删除的相册id');
+  ajax({
+    type: "post",
+    header: {
+      "Content-Type": "application/json",
+    },
+    url: urldomain + "175.178.51.126:8091/smallA/deleteAlbum",
+    data: {
+      id: photoID
+    },
+    success: (result, xhr) => {
+      console.log(result);
+      if(result.code == 200) {
+        alert('删除成功')
+        as[4].click();        
+        sections[4].removeChild(sections[4].children[1])
+      } else {
+        alert(result.msg)
+      }
+    }
+  })
+}
+// 查看个人相册
+as[4].addEventListener('click', function() {
+  ajax({
+    type: "post",
+    header: {
+      "Content-Type": "application/json",
+    },
+    url: urldomain + "175.178.51.126:8091/smallA/selectAlbumByUid",
+    data: {
+      uid: userinfo.id
+    },
+    success: (result,xhr) => {
+      if(result.code == 200) {
+        console.log(result);
+        deleteContentTab(result.data, sections[4]);
+        addphotos(result.data, sections[4]);
+        sendImage(result.data);
+        deleteImage(result.data);
+        showAlbum(result.data,sections[4]);
+      }
+    }
+  })
+})
+// 上传照片
+function sendImage(data) {
+  let sendImg = document.querySelectorAll('#send-img');
+  let imgFiles = document.querySelectorAll('#imageFiles');
+  let formData = new FormData()
+  formData.append('uid', userinfo.id)
+  for(let i = 0; i < data.length; i++) {
+    sendImg[i].onclick = function() {
+     formData.append('aid', data[i].id)
+     for(j = 0; j < imgFiles[i].files.length; j++) {
+       formData.append('photo', imgFiles[i].files[j])
+     }
+     ajax({
+      type: "post",
+      header: {
+        "Content-Type": ""
+      },
+      url: urldomain + "175.178.51.126:8091/smallA/uploadPhoto",
+      data: formData,
+      success: (result,xhr) => {
+        console.log(result);
+        if(result.code == 200) {
+         alert('上传成功')
+        } else {
+          alert(result.msg)
+        }
+      }
+     })
+    }
+  }
+}
+// 删除照片
+function deleteImage(data) {
+  let deleteimg = document.querySelectorAll('#delete-img')
+  for(i = 0; i < data.length; i++) {
+    deleteimg[i].onclick = function() {
+      let photoID = prompt('请输入要删除的照片的ID')
+      ajax({
+        type: "post",
+          header: {
+            "Content-Type": "application/json",
+          },
+          url: urldomain + "175.178.51.126:8091/smallA/deletePhoto",
+          data: {
+            id: photoID
+          },
+          success: (result, xhr) => {
+            console.log(result);
+            if(result.code == 200) {
+              alert('删除照片成功')
+            } else {
+              alert(result.msg)
+            }
+          }
+      })
+    }
+  }
+}
+// 关闭照片框
+let closeAlbum = document.getElementById('close-Album');
+let userAlbum = document.getElementById('user-Album');
+closeAlbum.onclick = function(){
+  userAlbum.style.display = 'none'
+}
+// 添加照片到照片框
+// 删除一些照片
+function deleteShow() {
+    if(userAlbum.children[5] != undefined) {
+    for(let i = 1; i < userAlbum.children.length; i++) {
+      userAlbum.removeChild(userAlbum.children[i])
+  } 
+}
+}
+function showAlbum(data,x) {
+  let h2s = x.querySelectorAll('h2');
+  for(let i = 0; i < h2s.length; i++) {
+    h2s[i].onclick = function() {
+      deleteShow();
+      userAlbum.style.display = 'block'
+      for(j = 0; j < data[i].photos.length; j++) {
+      let spanAndimg = '<span>id:'+ data[i].photos[j].id +'</span> \
+      <img src='+ imgdomain + data[i].photos[j].img +' alt="">'
+      userAlbum.insertAdjacentHTML('beforeend', spanAndimg);
+      }
+    }
+  }
+}
+
+
 
 
 

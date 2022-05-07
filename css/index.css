@@ -2,9 +2,15 @@
     margin: 0;
     padding: 0;
 }
-body {
+.on {
     height: 100vh;
     background-color: rgb(246, 246, 246);
+    /* background-color: black; */
+}
+.off {
+    height: 100vh;
+    background-color: black;
+    color: #fff;
 }
 .w {
     width: 1200px;
@@ -27,6 +33,15 @@ a {
 }
 .header img {
     width: 80px;
+}
+.header .on-off {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: #0f9cf5;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
 }
 .header ul {
     height: 100px;
@@ -124,6 +139,7 @@ a {
     width: 100%;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+    color: black;
 }
 .content .major {
     width: 900px;
@@ -216,7 +232,8 @@ section .search-id {
     width: 50px;
     cursor: pointer;
 }
-section .button-function {
+section .button-function,
+section .photo-function {
     width: 800px;
     /* height: 500px; */
     /* background-color: pink; */
@@ -227,7 +244,8 @@ section .button-function {
     justify-items: center;
     align-items: center;
 }
-.button-function .fun-top
+.button-function .fun-top,
+.photo-function .photo-top
  {
     width: 100%;
     height: 100px;
@@ -235,7 +253,11 @@ section .button-function {
     justify-content: space-between;
     align-items: center;
 }
-.button-function .fun-bottom {
+.photo-function .photo-top {
+    justify-content: space-around;
+}
+.button-function .fun-bottom,
+.photo-function .photo-bottom {
     width: 700px;
     flex: 1;
     border: 1px solid #f6b539;
@@ -248,17 +270,27 @@ section .button-function {
     flex-direction: column;
     align-items: center;
 }
-#form3 #put-title {
+.photo-function .photo-bottom #form4 {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#form3 #put-title,
+#form4 #photo-name {
     width: 400px;
 }
-#form3 #put-content {
+#form3 #put-content,
+#form4 #put-brief {
     resize: none;
     width: 95%;
     height: 75%;
     outline: none;
 }
 /* 按钮设置 */
-#form3 .form3-button {
+#form3 .form3-button,
+#form4 .form4-button {
     width: 100%;
     height: 40px;
     display: flex;
@@ -266,22 +298,38 @@ section .button-function {
     align-items: center;
     margin-top: 5px;
 }
-.fun-bottom #form3 input {
+.fun-bottom #form3 input,
+.photo-bottom #form4 input {
     width: 100px;
     margin: 5px 0;
     /* cursor: pointer; */
 }
-.fun-bottom #form3 .form3-button input {
+.fun-bottom #form3 .form3-button input,
+.photo-bottom #form4 .form4-button input {
     cursor: pointer;
 }
 .fun-bottom #form3 #files {
     width: 200px;
 }
-.button-function button {
+.button-function button,
+.photo-function button {
     cursor: pointer;
     letter-spacing: 5px;
     height: 50px;
     margin: 0 20px
+}
+.content .major #form5 {
+    width: 900px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.content .major #form5 input {
+    width: 100px;
+    border-radius: 10px;
+    margin: 0;
+    cursor: pointer;
 }
 /* 个人信息 */
 #user-spcinfo {
@@ -329,6 +377,40 @@ section .button-function {
     width: 50px;
     height: 30px;
     border-radius: 10px;
+    cursor: pointer;
+}
+/* 相片的盒子 */
+#user-Album {
+    width: 900px;
+    /* height: 600px; */
+    /* background-color: purple; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #ccc,
+    inset 0 0 10px #ccc;
+}
+#user-Album img {
+    width: 140px;
+    margin: 10px 5px;
+    vertical-align: middle;
+}
+#user-Album span {
+    margin: 10px 10px
+}
+#close-Album {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f6b539;
+    text-align: center;
+    line-height: 50px;
+    position: absolute;
+    top: -25px;
+    right: -25px;
     cursor: pointer;
 }
 

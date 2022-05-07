@@ -67,15 +67,21 @@ registerBtn.onclick = function () {
     });
   }
 };
+// 点击登录
+var login_userOrem = document.querySelector('input[name="usernameOrEmail"]');
+var login_password = document.querySelector('input[name="login-password"]');
+// 邮箱密码自动检验
+if(localStorage.getItem('email') != undefined) {
+  login_userOrem.value = localStorage.getItem('email');
+  login_password.value = localStorage.getItem('password')
+}
 loginBtn.onclick = function() {
     //获取表单里的值
-    let login_userOrem = document.querySelector('input[name="usernameOrEmail"]').value;
-    let login_password = document.querySelector('input[name="login-password"]').value;
-    if(!(regName.test(login_userOrem) || regEmail.test(login_userOrem))){
+    if(!(regName.test(login_userOrem.value) || regEmail.test(login_userOrem.value))){
         alert('请输入正确的用户名格式或邮箱格式')
         return;
     }
-    else if (!regPassword.test(login_password)) {
+    else if (!regPassword.test(login_password.value)) {
         alert('密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线');
         return;
     }
@@ -86,8 +92,8 @@ header: {
 },
 url: "http://175.178.51.126:8091/smallA/login",
 data: {
-    username: login_userOrem,
-    password: login_password
+    username: login_userOrem.value,
+    password: login_password.value
 },
 // 发送成功执行的函数
 success: function(result, xhr) {
@@ -112,12 +118,12 @@ error: function(result, xhr) {
     alert('发送失败')
 }
   }
-    if(regName.test(login_userOrem)) {
+    if(regName.test(login_userOrem.value)) {
         ajax(obj)
     }
     else {
         delete obj.data.username;
-        obj.data.email = login_userOrem;
+        obj.data.email = login_userOrem.value;
         ajax(obj)
     }
 }
