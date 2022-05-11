@@ -121,7 +121,7 @@ deleteBtn.onclick = function() {
                 if(result.code == 200) {
                     alert('注销成功')
                     deleteLocalData();
-                    window.location.href = "file:///C:/Users/pan'da'xie/Desktop/html/project/login%20and%20register.html";
+                    window.location.href = "login and register.html";
                 }
             }
         })
@@ -729,7 +729,8 @@ function sendImage(data) {
       success: (result,xhr) => {
         console.log(result);
         if(result.code == 200) {
-         alert('上传成功')
+         alert('上传成功');
+         as[4].click();
         } else {
           alert(result.msg)
         }
@@ -770,22 +771,16 @@ let closeAlbum = document.getElementById('close-Album');
 let userAlbum = document.getElementById('user-Album');
 closeAlbum.onclick = function(){
   userAlbum.style.display = 'none'
+  closeAlbum.style.display = 'none'
 }
 // 添加照片到照片框
-// 删除一些照片
-function deleteShow() {
-    if(userAlbum.children[5] != undefined) {
-    for(let i = 1; i < userAlbum.children.length; i++) {
-      userAlbum.removeChild(userAlbum.children[i])
-  } 
-}
-}
 function showAlbum(data,x) {
   let h2s = x.querySelectorAll('h2');
   for(let i = 0; i < h2s.length; i++) {
     h2s[i].onclick = function() {
-      deleteShow();
+      userAlbum.innerHTML = ''
       userAlbum.style.display = 'block'
+      closeAlbum.style.display = 'block'
       for(j = 0; j < data[i].photos.length; j++) {
       let spanAndimg = '<span>id:'+ data[i].photos[j].id +'</span> \
       <img src='+ imgdomain + data[i].photos[j].img +' alt="">'

@@ -408,10 +408,11 @@ section .photo-function {
     background-color: #f6b539;
     text-align: center;
     line-height: 50px;
-    position: absolute;
-    top: -25px;
-    right: -25px;
+    position: fixed;
+    top: 200px;
+    right: 284px;
     cursor: pointer;
+    z-index: 999;
 }
 
 

@@ -103,12 +103,12 @@ success: function(result, xhr) {
       localStorage.setItem('username', result.data.username);
       localStorage.setItem('id', result.data.id);
       localStorage.setItem('email', result.data.email);
-      localStorage.setItem('password', login_password);
+      localStorage.setItem('password', login_password.value);
       localStorage.setItem('headImg', result.data.headImg);
       localStorage.setItem('phone', result.data.phone);
       localStorage.setItem('sex', result.data.sex);
       localStorage.setItem('age', result.data.age);
-      window.location.href = "file:///C:/Users/pan'da'xie/Desktop/html/project/index.html"
+      window.location.href = "index.html"
   }
   else{
       alert(result.msg);
